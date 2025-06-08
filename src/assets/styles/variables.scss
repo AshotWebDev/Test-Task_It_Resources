@@ -1,0 +1,98 @@
+// styles/_variables.scss
+
+// orange colors
+$orange-50: #FDF0EA;
+$orange-100: #F9D0BF;
+$orange-200: #F6B99F;
+$orange-300: #F29974;
+$orange-400: #EF8559;
+$orange-500: #EB672F;
+$orange-600: #EA581A;
+$orange-700: #B04416;
+$orange-800: #8E350F;
+$orange-900: #632B14;
+
+// blue colors
+$blue-50: #E9EAED;
+$blue-100: #B9BEC6;
+$blue-200: #989FAB;
+$blue-300: #687384;
+$blue-400: #4B586D;
+$blue-600: #1B2A42;
+$blue-700: #152133;
+$blue-800: #111928;
+$blue-900: #0D131E;
+
+// gray colors
+$gray-50: #FBFBFC;
+$gray-100: #F9F9FA;
+$gray-200: #F2F3F4;
+$gray-250: #E6E8EA;
+$gray-300: #D5D8DC;
+$gray-400: #C0C2C6;
+$gray-500: #A0A2A5;
+$gray-600: #808284;
+$gray-700: #606163;
+$gray-800: #4B4C4D;
+$gray-900: #232229;
+
+
+// red colors
+$r-50: #FEE9E9;
+$r-60: #FDCECE;
+$r-75: #FBA5A5;
+$r-100: #F98080;
+$r-200: #F74949;
+$r-300: #F52424;
+$r-400: #AC1919;
+$r-500: #951616;
+
+// green colors
+$g-50: #ECF5EB;
+$g-60: #CFE5CC;
+$g-75: #B2D6AE;
+$g-100: #91C48D;
+$g-200: #62AB5B;
+$g-300: #429A3A;
+$g-400: #2E6C29;
+$g-500: #285E23;
+
+// yelow colors
+$y-50: #FEFAED;
+$y-60: #FCF2D4;
+$y-75: #FAE9B6;
+$y-100: #F7E097;
+$y-200: #F4D26A;
+$y-300: #F2C94C;
+$y-400: #CC9E0F;
+$y-500: #947B2E;
+
+
+// seconBlue colors
+$b-50: #ECEBFC;
+$b-75: #B2ACF2;
+$b-100: #9289ED;
+$b-200: #6357E5;
+$b-300: #4334E0;
+$b-400: #2F249D;
+$b-500: #292089;
+
+
+
+// ✅ Border radius
+$radius-sm: 4px;
+$radius-md: 6px;
+$radius-lg: 8px;
+
+
+
+// icons
+$icon-blue-50 : invert(100%) sepia(1%) saturate(968%) hue-rotate(120deg) brightness(94%) contrast(98%);
+$icon-blue-300 : invert(46%) sepia(9%) saturate(772%) hue-rotate(178deg) brightness(93%) contrast(92%);
+$icon-blue-600 : invert(14%) sepia(5%) saturate(6292%) hue-rotate(179deg) brightness(94%) contrast(92%);
+$icon-white : invert(100%) sepia(0%) saturate(0%) hue-rotate(19deg) brightness(104%) contrast(102%);
+$icon-gray-300 : invert(98%) sepia(7%) saturate(785%) hue-rotate(177deg) brightness(97%) contrast(77%);
+$icon-blue-400 : invert(32%) sepia(31%) saturate(428%) hue-rotate(178deg) brightness(91%) contrast(83%);
+$icon-orange-400 : invert(78%) sepia(26%) saturate(2275%) hue-rotate(313deg) brightness(89%) contrast(113%);
+$icon-orange-500 : invert(50%) sepia(39%) saturate(3053%) hue-rotate(343deg) brightness(97%) contrast(90%);
+$icon-orange-800 : invert(14%) sepia(83%) saturate(6454%) hue-rotate(38deg) brightness(83%) contrast(88%);
