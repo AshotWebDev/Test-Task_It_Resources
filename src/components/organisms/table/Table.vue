@@ -7,6 +7,7 @@ const props = defineProps({
   theadData: Array,
   tbodyData: Array,
 });
+
 </script>
 
 <template>

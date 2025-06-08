@@ -1,5 +1,5 @@
 <script setup>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import listIcon from "@/assets/icons/listIcon.svg";
 import exportIcon from "@/assets/icons/export.svg";
 import tableViewIcon from "@/assets/icons/barc.svg";
@@ -8,6 +8,15 @@ const Button = defineAsyncComponent(() => import("@/components/atom/button/Butto
 import { useUserStore } from "@/store/userStore";
 
 const usersStore = useUserStore();
+const viewList = ref(false);
+const selectedField = ref(10);
+const fields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
+
+const selectField = (field) => {
+  selectedField.value = field;
+  usersStore.setItemsPerPage(field);
+  viewList.value = false;
+};
 
 const changeViewType = (type) => {
   usersStore.setViewType(type);
@@ -18,15 +27,18 @@ const changeViewType = (type) => {
   <div class="users_control">
     <div class="users_control_left">
       <div class="users_control_left_show">
-        <span class="caption-regular">Show</span>
-        <Button
-          txt="10"
-          variant="secondary"
-          size="small"
-          type="button"
-          :icon="listIcon"
-          iconPosition="right"
-        />
+        <div class="users_control_left_show_selected">
+          <span class=" body2-medium">Show</span>
+          <div class="users_control_left_show_selected_icon" @click="viewList = !viewList">
+            <span>{{ selectedField }}</span>
+            <img :src="listIcon" alt="listIcon">
+          </div>
+        </div>
+        <ul v-if="viewList" class="users_control_left_show_list">
+          <li class="users_control_left_show_list_item" v-for="item in fields" :key="item" @click="selectField(item)">
+            <span class="body2-medium">Show {{ item }}</span>
+          </li>
+        </ul>
       </div>
       <Button
         txt="Export PDF"
@@ -74,6 +86,52 @@ const changeViewType = (type) => {
     &_show {
       @include flex-center;
       gap: 8px;
+      position: relative;
+
+      &_selected {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+
+        &_icon {
+          display: flex;
+          align-items: center;
+          border: 1px solid $gray-300;
+          border-radius: $radius-lg;
+          padding: 7px 8px;
+        }
+
+        span {
+          color: $blue-600;
+
+        }
+
+      }
+       
+      &_list {
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        background-color: #fff;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+        border-radius: $radius-lg;
+        padding: 8px 0;
+        z-index: 1;
+        width: 80px;
+
+        &_item {
+          padding: 8px;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $blue-50;
+          }
+        }
+      }
     }
   }
 

@@ -5,9 +5,9 @@ const UsersControl = defineAsyncComponent(() => import("@/components/molecules/u
 const SearchBar = defineAsyncComponent(() => import("@/components/molecules/searchBar/SearchBar.vue"));
 const Table = defineAsyncComponent(() => import("@/components/organisms/table/Table.vue"));
 const CardList = defineAsyncComponent(() => import("@/components/organisms/cardList/CardList.vue"));
+const Pagination = defineAsyncComponent(() => import("@/components/molecules/pagination/Pagination.vue"));
 const usersStore = useUserStore();
 const theadData = ref([]);
-
 
 onMounted(async () => {
   const cachedUsers = localStorage.getItem("users");
@@ -27,6 +27,8 @@ onMounted(async () => {
     );
   }
 });
+
+
 </script>
 
 <template>
@@ -37,6 +39,7 @@ onMounted(async () => {
 
       <Table v-if="usersStore.usersViewType === 'table'" :tbodyData="usersStore.users" :theadData="theadData" />
       <CardList v-if="usersStore.usersViewType === 'list'" :cardData="usersStore.users"/>
+      <Pagination v-if="usersStore.itemsPerPage !== 10"/>
     </div>
   </div>
 </template>
