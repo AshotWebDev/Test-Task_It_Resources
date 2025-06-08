@@ -29,7 +29,7 @@ Sass — CSS preprocessor
 
 1. Clone the repository or download the project files:
    ```bash
-   git clone https://your-repo-url.git
+   git clone https://github.com/AshotWebDev/Test-Task_It_Resources
    cd test_task_it_resources
 
 
