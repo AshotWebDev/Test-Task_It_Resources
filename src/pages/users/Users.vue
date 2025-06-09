@@ -37,8 +37,8 @@ onMounted(async () => {
       <SearchBar/>
       <UsersControl />
 
-      <Table v-if="usersStore.usersViewType === 'table'" :tbodyData="usersStore.users" :theadData="theadData" />
-      <CardList v-if="usersStore.usersViewType === 'list'" :cardData="usersStore.users"/>
+      <Table v-if="usersStore.usersViewType === 'table'" :theadData="theadData" />
+      <CardList v-if="usersStore.usersViewType === 'list'"/>
       <Pagination v-if="usersStore.itemsPerPage !== 10"/>
     </div>
   </div>

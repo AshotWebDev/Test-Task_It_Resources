@@ -28,18 +28,44 @@ const changeViewType = (type) => {
     <div class="users_control_left">
       <div class="users_control_left_show">
         <div class="users_control_left_show_selected">
-          <span class=" body2-medium">Show</span>
-          <div class="users_control_left_show_selected_icon" @click="viewList = !viewList">
+          <span class="body2-medium">Show</span>
+          <div
+            class="users_control_left_show_selected_icon"
+            role="button"
+            tabindex="0"
+            aria-haspopup="listbox"
+            :aria-expanded="viewList.toString()"
+            @click="viewList = !viewList"
+            @keydown.enter.prevent="viewList = !viewList"
+            @keydown.space.prevent="viewList = !viewList"
+          >
             <span>{{ selectedField }}</span>
-            <img :src="listIcon" alt="listIcon">
+            <img :src="listIcon" alt="List icon" aria-hidden="true" />
           </div>
         </div>
-        <ul v-if="viewList" class="users_control_left_show_list">
-          <li class="users_control_left_show_list_item" v-for="item in fields" :key="item" @click="selectField(item)">
+
+        <ul
+          v-if="viewList"
+          class="users_control_left_show_list"
+          role="listbox"
+          tabindex="-1"
+        >
+          <li
+            v-for="item in fields"
+            :key="item"
+            class="users_control_left_show_list_item"
+            role="option"
+            :aria-selected="selectedField === item"
+            tabindex="0"
+            @click="selectField(item)"
+            @keydown.enter.prevent="selectField(item)"
+            @keydown.space.prevent="selectField(item)"
+          >
             <span class="body2-medium">Show {{ item }}</span>
           </li>
         </ul>
       </div>
+
       <Button
         txt="Export PDF"
         variant="secondary"
@@ -47,6 +73,7 @@ const changeViewType = (type) => {
         type="button"
         :icon="exportIcon"
         iconPosition="left"
+        ariaLabel="Export PDF"
       />
     </div>
 
@@ -55,20 +82,36 @@ const changeViewType = (type) => {
         <div
           class="users_control_right_select_viewType_table"
           :class="{ active: usersStore.usersViewType === 'table' }"
+          role="button"
+          tabindex="0"
+          aria-pressed="usersStore.usersViewType === 'table'"
           @click="changeViewType('table')"
+          @keydown.enter.prevent="changeViewType('table')"
+          @keydown.space.prevent="changeViewType('table')"
         >
-          <img :src="tableViewIcon" alt="tableView" />
+          <img :src="tableViewIcon" alt="Table view icon" />
         </div>
         <div
           class="users_control_right_select_viewType_cards"
-          @click="changeViewType('list')"
           :class="{ active: usersStore.usersViewType === 'list' }"
+          role="button"
+          tabindex="0"
+          aria-pressed="usersStore.usersViewType === 'list'"
+          @click="changeViewType('list')"
+          @keydown.enter.prevent="changeViewType('list')"
+          @keydown.space.prevent="changeViewType('list')"
         >
-          <img :src="cardsViewIcon" alt="cardsView" />
+          <img :src="cardsViewIcon" alt="Cards view icon" />
         </div>
       </div>
 
-      <Button txt="Create User" variant="primary" size="medium" type="button" />
+      <Button
+        txt="Create User"
+        variant="primary"
+        size="medium"
+        type="button"
+        ariaLabel="Create User"
+      />
     </div>
   </div>
 </template>
@@ -81,10 +124,13 @@ const changeViewType = (type) => {
   margin-bottom: 20px;
 
   &_left {
-    @include flex-center;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 
     &_show {
-      @include flex-center;
+      display: flex;
+      align-items: center;
       gap: 8px;
       position: relative;
 
@@ -97,18 +143,23 @@ const changeViewType = (type) => {
         &_icon {
           display: flex;
           align-items: center;
-          border: 1px solid $gray-300;
+          border: 1px solid  $gray-300;
           border-radius: $radius-lg;
           padding: 7px 8px;
+          user-select: none;
+          outline-offset: 2px;
+          gap: 4px;
+
+          &:focus-visible {
+            outline: 3px solid black;
+          }
+
+          span {
+            color: $blue-600 
+          }
         }
-
-        span {
-          color: $blue-600;
-
-        }
-
       }
-       
+
       &_list {
         position: absolute;
         top: 40px;
@@ -120,15 +171,17 @@ const changeViewType = (type) => {
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
         border-radius: $radius-lg;
         padding: 8px 0;
-        z-index: 1;
+        z-index: 10;
         width: 80px;
 
         &_item {
           padding: 8px;
           cursor: pointer;
 
-          &:hover {
+          &:hover,
+          &:focus-visible {
             background-color: $blue-50;
+            outline: none;
           }
         }
       }
@@ -136,7 +189,9 @@ const changeViewType = (type) => {
   }
 
   &_right {
-    @include flex-center;
+    display: flex;
+    align-items: center;
+    gap: 16px;
 
     &_select_viewType {
       display: flex;
@@ -147,9 +202,13 @@ const changeViewType = (type) => {
       &_cards {
         width: 36px;
         height: 36px;
-        background-color: $blue-50;
-        @include flex-center;
+        background-color: $blue-50 ;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
+        user-select: none;
+        outline-offset: 2px;
 
         img {
           filter: $icon-blue-300;
@@ -161,6 +220,10 @@ const changeViewType = (type) => {
           img {
             filter: $icon-blue-600;
           }
+        }
+
+        &:focus-visible {
+          outline: 2px solid black
         }
       }
 

@@ -22,7 +22,7 @@ const goToPage = (page) => {
 
 <template>
   <nav class="pagination">
-    <Button  variant="primary" size="small" type="button"  :icon="chevronLeftIcon" :disabled="usersStore.currentPage === 1" :onclick="usersStore.prevPage" />
+    <Button  variant="primary" size="small" type="button"  :icon="chevronLeftIcon" :disabled="usersStore.currentPage === 1" :onclick="usersStore.prevPage"  ariaLabel="Previous"/>
 
     <Button
       v-for="page in pages"
@@ -32,9 +32,10 @@ const goToPage = (page) => {
       type="button"
       :txt="page"
       :onclick="() => goToPage(page)"
+      :ariaLabel="`Go to page ${page}`"
     />
 
-    <Button  variant="primary" size="small" type="button"  :icon="chevronRightIcon" :disabled="usersStore.currentPage === usersStore.totalPages" :onclick="usersStore.nextPage" />
+    <Button  variant="primary" size="small" type="button"  :icon="chevronRightIcon" :disabled="usersStore.currentPage === usersStore.totalPages" :onclick="usersStore.nextPage" ariaLabel="Next"/>
   </nav>
 </template>
 

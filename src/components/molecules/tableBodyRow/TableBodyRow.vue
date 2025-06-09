@@ -2,9 +2,7 @@
 import eyeIcon from "@/assets/icons/eye.svg";
 import editIcon from "@/assets/icons/Union.svg";
 import { useUserStore } from "../../../store/userStore";
-const props = defineProps({
-  tbodyData: Array,
-});
+
 const usersStore = useUserStore();
 
 function getDisplayValue(value) {
@@ -36,11 +34,29 @@ function getDisplayValue(value) {
       {{ getDisplayValue(value) }}
     </td>
     <td class="table_body_cell table_body_cell_last">
-      <div class="table_body_cell_last_icons">
-        <img :src="eyeIcon" alt="view" />
-        <img :src="editIcon" alt="edit" />
-      </div>
-    </td>
+  <div class="table_body_cell_last_icons">
+    <img
+      :src="eyeIcon"
+      alt="View"
+      role="button"
+      tabindex="0"
+      aria-label="View user details"
+      @click="() => handleViewClick(item.id)"
+      @keydown.enter.prevent="handleViewClick(item.id)"
+      @keydown.space.prevent="handleViewClick(item.id)"
+    />
+    <img
+      :src="editIcon"
+      alt="Edit"
+      role="button"
+      tabindex="0"
+      aria-label="Edit user"
+      @click="() => handleEditClick(item.id)"
+      @keydown.enter.prevent="handleEditClick(item.id)"
+      @keydown.space.prevent="handleEditClick(item.id)"
+    />
+  </div>
+</td>
   </tr>
 </template>
 

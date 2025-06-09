@@ -1,27 +1,43 @@
 <script setup>
-import sortIcon from '@/assets/icons/icon_sort.svg'
-import { useUserStore } from '@/store/userStore'
-import { ref } from 'vue'
+import sortIconAsc from "@/assets/icons/icon_sort.svg";
+import sortIconDesc from "@/assets/icons/icon_sort2.svg";
+import { useUserStore } from "@/store/userStore";
+import { ref } from "vue";
 
 const props = defineProps({
   theadData: Array
-})
+});
 
-const userStore = useUserStore()
+const userStore = useUserStore();
+const currentSortField = ref("id");
+const currentSortOrder = ref("asc");
 
-const currentSortField = ref('')
-const currentSortOrder = ref('asc')
+userStore.sortUsers(currentSortField.value, currentSortOrder.value);
 
 function toggleSort(field) {
   if (currentSortField.value === field) {
-    currentSortOrder.value = currentSortOrder.value === 'asc' ? 'desc' : 'asc'
+    currentSortOrder.value = currentSortOrder.value === "asc" ? "desc" : "asc";
   } else {
-    currentSortField.value = field
-    currentSortOrder.value = 'asc'
+    currentSortField.value = field;
+    currentSortOrder.value = "asc";
   }
-  userStore.sortUsers(field, currentSortOrder.value)
+  userStore.sortUsers(field, currentSortOrder.value);
+}
+
+function getSortIcon(field) {
+  if (currentSortField.value === field.toLowerCase()) {
+    return currentSortOrder.value === "asc" ? sortIconAsc : sortIconDesc;
+  }
+  return sortIconDesc;
+}
+
+function getAriaSort(field) {
+  const normalized = field.toLowerCase();
+  if (currentSortField.value !== normalized) return "none";
+  return currentSortOrder.value === "asc" ? "ascending" : "descending";
 }
 </script>
+
 
 <template>
   <tr class="table_header_row">
@@ -30,20 +46,38 @@ function toggleSort(field) {
       :class="index === 0 ? 'table_header_cell_first' : ''"
       v-for="(head, index) in theadData"
       :key="index"
+      :aria-sort="getAriaSort(head)"
     >
-      <span class="table_header_cell_content">
+      <span
+        class="table_header_cell_content"
+        v-if="head !== 'Phone'"
+        role="button"
+        tabindex="0"
+        @click="toggleSort(head.toLowerCase())"
+        @keydown.enter.prevent="toggleSort(head.toLowerCase())"
+        @keydown.space.prevent="toggleSort(head.toLowerCase())"
+      >
         {{ head }}
-        <img :src="sortIcon" alt="sort icon" @click="toggleSort(head.toLowerCase())" />
+        <img
+          :src="getSortIcon(head)"
+          :alt="`Sort by ${head}`"
+          :aria-label="`Sort by ${head}, ${getAriaSort(head)}`"
+        />
+      </span>
+
+      <span v-else class="table_header_cell_content">
+        {{ head }}
       </span>
     </th>
+
     <th class="table_header_cell table_header_cell_last body2-bold">
       <span class="table_header_cell_content">
         Actions
-        <img :src="sortIcon" alt="sort" @click="userStore.resetSort()" />
       </span>
     </th>
   </tr>
 </template>
+
 
 
 <style lang="scss" scoped>

@@ -8,9 +8,6 @@ const Card = defineAsyncComponent(() =>
 
 const usersStore = useUserStore();
 
-const props = defineProps({
-  cardData: Array,
-});
 </script>
 
 <template>

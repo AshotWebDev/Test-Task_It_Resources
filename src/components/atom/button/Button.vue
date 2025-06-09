@@ -11,6 +11,7 @@ const props = defineProps({
     default: "medium",
   },
   txt: String,
+  ariaLabel: String,
   icon: [Object, String],
   iconPosition: {
     type: String,
@@ -35,6 +36,7 @@ const handleClick = (e) => {
 
 <template>
   <button
+    :aria-label="ariaLabel"
     :class="['button', variant, size, { disabled }]"
     :disabled="disabled"
     @click="handleClick"

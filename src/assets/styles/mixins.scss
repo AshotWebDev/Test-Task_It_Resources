@@ -1,6 +1,4 @@
-// src/assets/styles/_mixins.scss
 
-// 1. Flexbox կենտրոնացում
 @mixin flex-center {
   display: flex;
   justify-content: center;
@@ -9,7 +7,6 @@
 }
 
 
-// Mixin for text style
 @mixin text-style($size, $weight, $line-height) {
   font-size: $size;
   font-weight: $weight;
