@@ -2,8 +2,9 @@
 import eyeIcon from "@/assets/icons/eye.svg";
 import editIcon from "@/assets/icons/Union.svg";
 import { useUserStore } from "../../../store/userStore";
-
+import { useModalStore } from "../../../store/modalStore";
 const usersStore = useUserStore();
+const molalStore = useModalStore();
 
 function getDisplayValue(value) {
   if (value == null) return "";
@@ -17,6 +18,11 @@ function getDisplayValue(value) {
 
   const stringValue = String(value);
   return stringValue;
+}
+
+const viewUser = async(id) => {
+  await usersStore.fetchUserById(id)
+   molalStore.toggleModal()
 }
 </script>
 
@@ -41,9 +47,9 @@ function getDisplayValue(value) {
       role="button"
       tabindex="0"
       aria-label="View user details"
-      @click="() => handleViewClick(item.id)"
-      @keydown.enter.prevent="handleViewClick(item.id)"
-      @keydown.space.prevent="handleViewClick(item.id)"
+      @click="() => viewUser(item.id)"
+      @keydown.enter.prevent="viewUser(item.id)"
+      @keydown.space.prevent="viewUser(item.id)"
     />
     <img
       :src="editIcon"

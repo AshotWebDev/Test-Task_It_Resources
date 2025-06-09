@@ -22,6 +22,7 @@ const sidebarOpen = ref(false);
         <RouterView />
       </main>
     </div>
+
   </div>
 </template>
 

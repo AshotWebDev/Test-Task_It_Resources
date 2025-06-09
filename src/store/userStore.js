@@ -6,6 +6,7 @@ export const useUserStore = defineStore('user', () => {
   const cachedUsers = localStorage.getItem("users");
   const parsedUsers = JSON.parse(cachedUsers);
   const users = ref([])
+  const user = ref({})
   const usersViewType = ref('table')
   const originalUsers = ref(parsedUsers || []) 
   const loading = ref(false)
@@ -32,6 +33,19 @@ export const useUserStore = defineStore('user', () => {
       users.value = res.data
       originalUsers.value = [...res.data]
       currentPage.value = 1 
+    } catch (err) {
+      error.value = err.response?.data?.message || 'User fetch failed'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const fetchUserById = async (id) => {
+    loading.value = true
+    error.value = null
+    try {
+      const res = await instance.get(`users/${id}`)
+      user.value = res.data
     } catch (err) {
       error.value = err.response?.data?.message || 'User fetch failed'
     } finally {
@@ -154,10 +168,12 @@ const setItemsPerPage = (count) => {
 
   return {
     users,
+    user,
     usersViewType,
     loading,
     error,
     fetchUser,
+    fetchUserById,
     sortUsers,
     resetSort,
     setViewType,
