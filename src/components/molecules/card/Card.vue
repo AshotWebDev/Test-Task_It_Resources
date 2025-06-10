@@ -6,23 +6,24 @@ import { useModalStore } from "@/store/modalStore";
 
 const props = defineProps({
   item: Object,
+  fetchById: Function
 });
 const usersStore = useUserStore();
 const molalStore = useModalStore();
 
 const viewUser = async (id) => {
-  await usersStore.fetchUserById(id);
+  await props.fetchById(id);
   molalStore.toggleModal();
 };
 </script>
 
 <template>
-  <div class="card" role="region" :aria-label="`User: ${item.name}`">
+  <div class="card" role="region" :aria-label="`User: ${props.item.name}`">
     <div class="card_head">
       <button
-        @click="viewUser(item.id)"
-        @keydown.enter.prevent="viewUser(item.id)"
-        @keydown.space.prevent="viewUser(item.id)"
+        @click="viewUser(props.item.id)"
+        @keydown.enter.prevent="viewUser(props.item.id)"
+        @keydown.space.prevent="viewUser(props.item.id)"
         aria-label="View user"
         class="card_head_icon-button"
       >
@@ -34,47 +35,9 @@ const viewUser = async (id) => {
     </div>
 
     <ul class="card_body">
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Name</span>
-        <span class="card_body_item_value body2-medium">{{ item.name }}</span>
-      </li>
-
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Username</span>
-        <span class="card_body_item_value body2-medium">{{
-          item.username
-        }}</span>
-      </li>
-
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Email</span>
-        <span class="card_body_item_value body2-medium">{{ item.email }}</span>
-      </li>
-
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Address</span>
-        <span class="card_body_item_value body2-medium">{{
-          item.address.street
-        }}</span>
-      </li>
-
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Phone</span>
-        <span class="card_body_item_value body2-medium">{{ item.phone }}</span>
-      </li>
-
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Website</span>
-        <span class="card_body_item_value body2-medium">{{
-          item.website
-        }}</span>
-      </li>
-
-      <li class="card_body_item">
-        <span class="card_body_item_title body2-bold">Company</span>
-        <span class="card_body_item_value body2-medium">{{
-          item.company.name
-        }}</span>
+      <li class="card_body_item" v-for="(value, key) in props.item" :key="key">
+        <span class="card_body_item_title body2-bold">{{ key }}</span>
+        <span class="card_body_item_value body2-medium">{{ value }}</span>
       </li>
     </ul>
   </div>

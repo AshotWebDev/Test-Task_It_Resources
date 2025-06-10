@@ -50,6 +50,9 @@ onUnmounted(() => {
 
 // Ref for focus
 const closeButton = ref(null);
+
+console.log(props.info,99);
+
 </script>
 
 <template>
@@ -68,7 +71,7 @@ const closeButton = ref(null);
           ref="closeButton"
           class="close_btn"
           @click="closeModal"
-          aria-label="Փակել մոդալը"
+          aria-label="Close modal"
         >
           ✖
         </button>
@@ -142,6 +145,14 @@ const closeButton = ref(null);
         &_item {
           display: flex;
           justify-content: space-between;
+
+          h4 {
+            width: 50%;
+          }
+
+          p {
+            width: 50%;
+          }
         }
       }
     }

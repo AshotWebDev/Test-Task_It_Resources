@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const HelloWorld = () => import('@/pages/home/HelloWorld.vue')
 const Users = () => import('@/pages/users/Users.vue')
+const Posts = () => import('@/pages/posts/posts.vue')
 const DefaultLayout = () => import('@/layouts/DefaultLayout.vue')
 
 const routes = [
@@ -19,6 +20,12 @@ const routes = [
         path: '/users',
         name: 'Users',
         component: Users
+      },
+
+      {
+        path: '/posts',
+        name: 'Posts',
+        component: Posts
       }
     ]
   },

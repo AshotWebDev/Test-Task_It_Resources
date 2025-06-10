@@ -5,7 +5,9 @@ const TableHeaderRow = defineAsyncComponent(() => import("@/components/molecules
 
 const props = defineProps({
   theadData: Array,
-  tbodyData: Array,
+  paginatedData: Array,
+  sort: Function,
+  fetchById: Function
 });
 
 </script>
@@ -15,11 +17,11 @@ const props = defineProps({
   <div class="table-wrapper">
     <table class="table">
       <thead class="table_header">
-        <TableHeaderRow :theadData="theadData"/>
+        <TableHeaderRow :theadData="theadData" :sort="props.sort"/>
       </thead>
 
       <tbody class="table_body">
-        <TableBodyRow :tbodyData="tbodyData"/>
+        <TableBodyRow :paginatedData="props.paginatedData" :fetchById="props.fetchById"/>
       </tbody>
     </table>
   </div>

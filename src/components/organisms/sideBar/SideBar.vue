@@ -47,7 +47,7 @@ function toggleSidebar() {
       <SideBarListItem path="/users" title="Users" :icon="usersIcon" :isOpen="isOpen" />
       <SideBarListItem path="/workers" title="Workers" :icon="workersIcon" :isOpen="isOpen" />
       <SideBarListItem path="/places" title="Places" :icon="placesIcon" :isOpen="isOpen" />
-      <SideBarListItem path="/products" title="Products" :icon="productsIcon" :isOpen="isOpen" />
+      <SideBarListItem path="/posts" title="Posts" :icon="productsIcon" :isOpen="isOpen" />
       <SideBarListItem path="/orders" title="Orders" :icon="ordersIcon" :isOpen="isOpen" />
       <SideBarListItem path="/scan-history" title="Scan history" :icon="historyIcon" :isOpen="isOpen" />
     </ul>

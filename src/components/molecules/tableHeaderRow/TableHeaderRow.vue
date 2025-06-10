@@ -1,18 +1,17 @@
 <script setup>
 import sortIconAsc from "@/assets/icons/icon_sort.svg";
 import sortIconDesc from "@/assets/icons/icon_sort2.svg";
-import { useUserStore } from "@/store/userStore";
 import { ref } from "vue";
 
 const props = defineProps({
-  theadData: Array
+  theadData: Array,
+  sort: Function,
 });
 
-const userStore = useUserStore();
 const currentSortField = ref("id");
 const currentSortOrder = ref("asc");
 
-userStore.sortUsers(currentSortField.value, currentSortOrder.value);
+props.sort(currentSortField.value, currentSortOrder.value);
 
 function toggleSort(field) {
   if (currentSortField.value === field) {
@@ -21,7 +20,7 @@ function toggleSort(field) {
     currentSortField.value = field;
     currentSortOrder.value = "asc";
   }
-  userStore.sortUsers(field, currentSortOrder.value);
+  props.sort(field, currentSortOrder.value);
 }
 
 function getSortIcon(field) {
@@ -50,7 +49,7 @@ function getAriaSort(field) {
     >
       <span
         class="table_header_cell_content"
-        v-if="head !== 'Phone'"
+         v-if="head !== 'Phone' && head !== 'UserId'"
         role="button"
         tabindex="0"
         @click="toggleSort(head.toLowerCase())"

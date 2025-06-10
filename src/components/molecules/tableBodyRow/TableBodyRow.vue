@@ -1,10 +1,14 @@
 <script setup>
 import eyeIcon from "@/assets/icons/eye.svg";
 import editIcon from "@/assets/icons/Union.svg";
-import { useUserStore } from "../../../store/userStore";
 import { useModalStore } from "../../../store/modalStore";
-const usersStore = useUserStore();
+const props = defineProps({
+  paginatedData: Array,
+  fetchById: Function
+})
 const molalStore = useModalStore();
+
+
 
 function getDisplayValue(value) {
   if (value == null) return "";
@@ -21,7 +25,7 @@ function getDisplayValue(value) {
 }
 
 const viewUser = async(id) => {
-  await usersStore.fetchUserById(id)
+  await  props.fetchById(id)
    molalStore.toggleModal()
 }
 </script>
@@ -29,7 +33,7 @@ const viewUser = async(id) => {
 <template>
   <tr
     class="table_body_row"
-    v-for="(item, index) in usersStore.paginatedUsers"
+    v-for="(item, index) in props.paginatedData"
     :key="item.id || index"
   >
     <td

@@ -7,30 +7,37 @@ import cardsViewIcon from "@/assets/icons/category.svg";
 const Button = defineAsyncComponent(() => import("@/components/atom/button/Button.vue"));
 import { useUserStore } from "@/store/userStore";
 
+const props = defineProps({
+  fields: Array,
+  paginationFuck: Function,
+  changeViewType: Function,
+  buttonTxt: String,
+  viewType: String
+})
 const usersStore = useUserStore();
 const viewList = ref(false);
 const selectedField = ref(10);
-const fields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
+
 
 const selectField = (field) => {
   selectedField.value = field;
-  usersStore.setItemsPerPage(field);
+  props.paginationFuck(field);
   viewList.value = false;
 };
 
 const changeViewType = (type) => {
-  usersStore.setViewType(type);
+  props.changeViewType(type);
 };
 </script>
 
 <template>
-  <div class="users_control">
-    <div class="users_control_left">
-      <div class="users_control_left_show">
-        <div class="users_control_left_show_selected">
+  <div class="control">
+    <div class="control_left">
+      <div class="control_left_show">
+        <div class="control_left_show_selected">
           <span class="body2-medium">Show</span>
           <div
-            class="users_control_left_show_selected_icon"
+            class="control_left_show_selected_icon"
             role="button"
             tabindex="0"
             aria-haspopup="listbox"
@@ -46,14 +53,14 @@ const changeViewType = (type) => {
 
         <ul
           v-if="viewList"
-          class="users_control_left_show_list"
+          class="control_left_show_list"
           role="listbox"
           tabindex="-1"
         >
           <li
-            v-for="item in fields"
+            v-for="item in props.fields"
             :key="item"
-            class="users_control_left_show_list_item"
+            class="control_left_show_list_item"
             role="option"
             :aria-selected="selectedField === item"
             tabindex="0"
@@ -77,11 +84,11 @@ const changeViewType = (type) => {
       />
     </div>
 
-    <div class="users_control_right">
-      <div class="users_control_right_select_viewType">
+    <div class="control_right">
+      <div class="control_right_select_viewType">
         <div
-          class="users_control_right_select_viewType_table"
-          :class="{ active: usersStore.usersViewType === 'table' }"
+          class="control_right_select_viewType_table"
+          :class="{ active: props.viewType === 'table' }"
           role="button"
           tabindex="0"
           aria-pressed="usersStore.usersViewType === 'table'"
@@ -92,8 +99,8 @@ const changeViewType = (type) => {
           <img :src="tableViewIcon" alt="Table view icon" />
         </div>
         <div
-          class="users_control_right_select_viewType_cards"
-          :class="{ active: usersStore.usersViewType === 'list' }"
+          class="control_right_select_viewType_cards"
+          :class="{ active: props.viewType === 'list' }"
           role="button"
           tabindex="0"
           aria-pressed="usersStore.usersViewType === 'list'"
@@ -106,18 +113,18 @@ const changeViewType = (type) => {
       </div>
 
       <Button
-        txt="Create User"
+        :txt="props.buttonTxt"
         variant="primary"
         size="medium"
         type="button"
-        ariaLabel="Create User"
+        :ariaLabel="props.buttonTxt"
       />
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.users_control {
+.control {
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -2,27 +2,18 @@
 import { defineAsyncComponent, ref } from "vue";
 import listIcon from "@/assets/icons/listIcon.svg";
 import plusIcon from "@/assets/icons/plus.svg";
-import { useUserStore } from "@/store/userStore";
 
 const Button = defineAsyncComponent(() =>
   import("@/components/atom/button/Button.vue")
 );
 
+const props = defineProps({
+  searchFields: Array,
+  searchFunc: Function
+});
+
 const viewList = ref(false);
 const selectedField = ref("All");
-const usersStore = useUserStore();
-
-const searchFields = [
-  "All",
-  "Id",
-  "Name",
-  "Username",
-  "Email",
-  "Phone",
-  "Website",
-  "Address",
-  "Company",
-];
 
 const selectField = (field) => {
   selectedField.value = field;
@@ -30,7 +21,7 @@ const selectField = (field) => {
 };
 
 const handleSearch = (field, query) => {
-  usersStore.searchUsers(field.toLowerCase(), query);
+  props.searchFunc(field.toLowerCase(), query);
 };
 </script>
 

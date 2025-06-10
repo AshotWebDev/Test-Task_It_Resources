@@ -1,7 +1,7 @@
 <script setup>
 import { computed, defineAsyncComponent, onMounted, ref } from "vue";
 import { useUserStore } from "@/store/userStore";
-const UsersControl = defineAsyncComponent(() => import("@/components/molecules/usersControl/UsersControl.vue"));
+const Control = defineAsyncComponent(() => import("@/components/molecules/control/Control.vue"));
 const SearchBar = defineAsyncComponent(() => import("@/components/molecules/searchBar/SearchBar.vue"));
 const Table = defineAsyncComponent(() => import("@/components/organisms/table/Table.vue"));
 const CardList = defineAsyncComponent(() => import("@/components/organisms/cardList/CardList.vue"));
@@ -46,18 +46,46 @@ const displayFields = computed(() => {
   };
 });
 
+const searchFields = [
+  "All",
+  "Id",
+  "Name",
+  "Username",
+  "Email",
+  "Phone",
+  "Website",
+  "Address",
+  "Company",
+];
 
+const usersCountfields = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; 
+
+const mapUserData = (user) => {
+  const { name, username, email, phone, website, address, company, id } = user;
+  return {
+    id: id,
+    Name: name,
+    Username: username,
+    Email: email,
+    Address: `${address?.street}, ${address?.suite}, ${address?.city}, ${address?.zipcode}`,
+    Phone: phone,
+    Website: website,
+    Company: `${company?.name}, ${company?.catchPhrase}, ${company?.bs}`
+  };
+};
+
+const users = computed(() => usersStore.paginatedUsers.map(mapUserData));
 </script>
 
 <template>
   <div class="users_page">
     <div class="container">
-      <SearchBar/>
-      <UsersControl />
+      <SearchBar :searchFields="searchFields" :searchFunc="usersStore.searchUsers"/>
+      <Control :fields="usersCountfields" :paginationFuck="usersStore.setItemsPerPage" :changeViewType="usersStore.setViewType" buttonTxt="Create Users" :viewType="usersStore.usersViewType"/>
 
-      <Table v-if="usersStore.usersViewType === 'table'" :theadData="theadData" />
-      <CardList v-if="usersStore.usersViewType === 'list'"/>
-      <Pagination v-if="usersStore.itemsPerPage !== 10"/>
+      <Table v-if="usersStore.usersViewType === 'table'" :theadData="theadData"  :paginatedData="usersStore.paginatedUsers" :sort="usersStore.sortUsers" :fetchById="usersStore.fetchUserById"/>
+      <CardList v-if="usersStore.usersViewType === 'list'" :items="users" :fetchById="usersStore.fetchUserById"/>
+      <Pagination v-if="usersStore.itemsPerPage !== 10" :store="usersStore"/>
     </div>
   </div>
 

@@ -5,6 +5,10 @@ import { useUserStore } from "../../../store/userStore";
 const Card = defineAsyncComponent(() =>
   import("@/components/molecules/card/Card.vue")
 );
+const props = defineProps({
+  items: Array,
+  fetchById: Function
+});
 
 const usersStore = useUserStore();
 
@@ -13,9 +17,10 @@ const usersStore = useUserStore();
 <template>
   <div class="card_list">
     <Card
-      v-for="item in usersStore.paginatedUsers"
+      v-for="item in props.items"
       :key="item.id"
       :item="item"
+      :fetchById="props.fetchById"
     />
   </div>
 </template>
