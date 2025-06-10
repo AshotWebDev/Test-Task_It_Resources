@@ -5,7 +5,10 @@
 This project is built using Vue.js and leverages Pinia for state management, Axios for HTTP requests, and SCSS for styling.
 
 The application fetches user data from the JSON Placeholder API and displays the users. It features functional filtering, searching, and sorting capabilities, providing a smooth user experience when browsing through the user list.
-You can see it on the user's page.
+
+These same functionalities—fetching, filtering, searching, and sorting—have also been implemented for posts, enhancing the overall usability of the posts page as well.
+
+You can see it on the Users and Posts pages.
 
 ##  Technologies
 The project uses the following main technologies:
