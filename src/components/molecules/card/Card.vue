@@ -14,6 +14,8 @@ const molalStore = useModalStore();
 const viewUser = async (id) => {
   await props.fetchById(id);
   molalStore.toggleModal();
+  console.log(props.item);
+  
 };
 </script>
 
