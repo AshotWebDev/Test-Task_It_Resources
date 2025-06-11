@@ -10,6 +10,9 @@ These same functionalities—fetching, filtering, searching, and sorting—have 
 
 You can see it on the Users and Posts pages.
 
+Create a .env file that should contain
+VITE_BASE_URL_API= 'https://jsonplaceholder.typicode.com/'
+
 ##  Technologies
 The project uses the following main technologies:
 
